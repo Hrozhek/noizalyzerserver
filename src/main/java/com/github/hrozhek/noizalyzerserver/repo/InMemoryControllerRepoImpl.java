@@ -11,8 +11,10 @@ public class InMemoryControllerRepoImpl <M extends ControllerModel> implements C
     private final ConcurrentMap<UUID, M> models = new ConcurrentHashMap<>();
 
     //todo logging annotations
-    public void add(M model) {
+    public UUID add(M model) {
+        UUID id = generateId(model);
         models.put(generateId(model), model);
+        return id;
     }
 
     //todo answer or what

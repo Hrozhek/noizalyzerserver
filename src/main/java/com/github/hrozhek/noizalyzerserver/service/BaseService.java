@@ -2,15 +2,18 @@ package com.github.hrozhek.noizalyzerserver.service;
 
 //todo swagger annotations
 
-import com.github.hrozhek.noizalyzerserver.context.ApplicationContext;
+import java.util.UUID;
 
 public interface BaseService {
 
-    void registerController();
+//    @GetMapping
+    UUID registerController();
 
-    void registerData();
+    String registerData(String controllerId);
 
-    void unregisterController();
+    String registerWebSocket(String controllerId);
+
+    void unregisterController(String id);
 
     //todo methods for getting list of controllers, files etc.
 }

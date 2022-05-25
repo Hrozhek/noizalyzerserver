@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface ControllerRepo<M extends ControllerModel> {
 
     //todo return response
-    void add(M model);//todo callback?
+    UUID add(M model);//todo callback?
 
     void remove(UUID id);
 

@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 public class KeepAliveProcessorImpl implements KeepAliveProcessor {
 
     private final ControllerRepo controllerRepo;
-//    private final ConcurrentMap<> todo - update
+//    private final ConcurrentMap<> todo - store and update controllers
 
     @Autowired
     public KeepAliveProcessorImpl(ControllerRepo controllerRepo) {
@@ -25,7 +25,7 @@ public class KeepAliveProcessorImpl implements KeepAliveProcessor {
             return thread;
         };
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(4, namedDaemonFactory);//todo
-        executor.schedule(this::checkAllControllers, 1, TimeUnit.MINUTES);//todo from config
+        executor.scheduleAtFixedRate(this::checkAllControllers, 0,10, TimeUnit.MINUTES);//todo from config
     }
 
     @Override
