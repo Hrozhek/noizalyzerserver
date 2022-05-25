@@ -38,7 +38,7 @@ public class FileSystemFileRepoImpl implements FileRepo {
             if (!Files.isDirectory(dir)) {
                 dir = Files.createDirectories(dir);
             }
-            String fileName = String.format("%s_controllerId_%d_%s", config.getPrefix(), data.getSensorId(),
+            String fileName = String.format("%s_sensorId_%d_%s", config.getPrefix(), data.getSensorId(),
                     data.getCreationTime());
             Path file = dir.resolve(fileName);
             if (Files.isRegularFile(file)) {

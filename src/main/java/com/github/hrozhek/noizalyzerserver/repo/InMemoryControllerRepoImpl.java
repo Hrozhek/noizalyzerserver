@@ -13,7 +13,7 @@ public class InMemoryControllerRepoImpl <M extends ControllerModel> implements C
     //todo logging annotations
     public UUID add(M model) {
         UUID id = generateId(model);
-        models.put(generateId(model), model);
+        models.put(id, model);
         return id;
     }
 

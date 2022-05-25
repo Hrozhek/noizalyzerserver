@@ -23,7 +23,7 @@ public class MockController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @PostMapping("controller/{id}/file")
+    @PostMapping("/controller/{controllerId}/file")
     public ResponseEntity<String> registerData(@PathVariable String controllerId) {
         return new ResponseEntity<>(service.registerWebSocket(controllerId), HttpStatus.OK);
     }

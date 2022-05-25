@@ -2,6 +2,9 @@ package com.github.hrozhek.noizalyzerserver.context;
 
 import com.github.hrozhek.noizalyzerserver.exception.BaseException;
 import com.github.hrozhek.noizalyzerserver.model.FileData;
+import com.github.hrozhek.noizalyzerserver.repo.ControllerRepo;
+import com.github.hrozhek.noizalyzerserver.repo.FileRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 import java.util.Optional;
@@ -12,6 +15,14 @@ import java.util.concurrent.ConcurrentMap;
 public class ApplicationContext {
 
     private final ConcurrentMap<String, UUID> webSocketToControllerIds = new ConcurrentHashMap<>();
+    private final FileRepo fileRepo;
+    private final ControllerRepo controllerRepo;
+
+    @Autowired
+    public ApplicationContext(FileRepo fileRepo, ControllerRepo controllerRepo) {
+        this.fileRepo = fileRepo;
+        this.controllerRepo = controllerRepo;
+    }
 //    private final ConcurrentMap<String, FileData> webSocketToControllerData = new ConcurrentHashMap<>();
 
     public Optional<UUID> getControllerByWs(String ws) {
@@ -53,4 +64,13 @@ public class ApplicationContext {
 //    public Optional<FileData> getFileData(String webSocketId) {
 //        return Optional.ofNullable(webSocketToControllerData.get(webSocketId));
 //    }
+
+
+    public FileRepo getFileRepo() {
+        return fileRepo;
+    }
+
+    public ControllerRepo getControllerRepo() {
+        return controllerRepo;
+    }
 }

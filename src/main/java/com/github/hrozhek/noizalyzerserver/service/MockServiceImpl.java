@@ -40,7 +40,10 @@ public class MockServiceImpl implements BaseService {
         if (controllerRepo.get(UUID.fromString(controllerId)) == null) {
             throw new BaseException();//todo
         }
-        return UUID.randomUUID().toString();
+        System.out.println("register ws: we are here, controllerId");
+        String ws = UUID.randomUUID().toString();
+        context.bindWsToController(ws, UUID.fromString(controllerId));
+        return ws;
     }
 
     @Override
