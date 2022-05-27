@@ -4,6 +4,7 @@ import com.github.hrozhek.noizalyzerserver.config.DirectoryConfig;
 import com.github.hrozhek.noizalyzerserver.exception.BaseException;
 import com.github.hrozhek.noizalyzerserver.model.FileData;
 import com.github.hrozhek.noizalyzerserver.util.ByteBufferUtil;
+import com.github.hrozhek.noizalyzerserver.util.InstantConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 
@@ -39,7 +40,7 @@ public class FileSystemFileRepoImpl implements FileRepo {
                 dir = Files.createDirectories(dir);
             }
             String fileName = String.format("%s_sensorId_%d_%s", config.getPrefix(), data.getSensorId(),
-                    data.getCreationTime());
+                    InstantConverter.format(data.getCreationTime()));
             Path file = dir.resolve(fileName);
             if (Files.isRegularFile(file)) {
                 throw new BaseException();//todo

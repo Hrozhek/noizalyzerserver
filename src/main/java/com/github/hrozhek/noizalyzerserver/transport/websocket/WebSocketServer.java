@@ -67,7 +67,7 @@ public class WebSocketServer {
         fileRepo = applicationContext.getFileRepo();
     }
 
-    @OnMessage
+    @OnMessage(maxMessageSize = 10 * 1024 * 1024)
     public void processBinaryMessage(ByteBuffer buffer) {
         FileData fileData = new FileData(controllerId, sensorId);
         fileRepo.save(buffer, fileData);

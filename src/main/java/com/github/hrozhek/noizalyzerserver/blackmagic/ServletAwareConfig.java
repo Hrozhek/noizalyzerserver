@@ -11,9 +11,12 @@ import javax.websocket.server.HandshakeRequest;
 import javax.websocket.server.ServerEndpointConfig;
 
 public class ServletAwareConfig extends ServerEndpointConfig.Configurator {
+
     public static final String SERVLET_CONTEXT_PROP = "servletContext";
 
-    @Autowired
+    private static final String APP_CTX = ApplicationContext.class.getName();
+
+    @Autowired//doesn't work
     private ApplicationContext applicationContext;
 
     @Override
@@ -27,15 +30,16 @@ public class ServletAwareConfig extends ServerEndpointConfig.Configurator {
     }
 
     private void addApplicationContext(ServletContext servletContext) {
-        if (applicationContext == null) {
-            SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, servletContext);
-        }
-        if (springInitSuccessful() && servletContext.getAttribute(ApplicationContext.class.getName()) == null) {
-            servletContext.setAttribute(ApplicationContext.class.getName(), applicationContext);
+        if (applicationContext == null || servletContext.getAttribute(APP_CTX) == null) {
+            initApplicationContext(servletContext);
         }
     }
 
-    private boolean springInitSuccessful() {
-        return applicationContext != null;
+    private void initApplicationContext(ServletContext servletContext) {
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, servletContext);
+        if (applicationContext == null) {
+            throw new RuntimeException("init unsuccessful");//todo
+        }
+        servletContext.setAttribute(APP_CTX, applicationContext);
     }
 }
