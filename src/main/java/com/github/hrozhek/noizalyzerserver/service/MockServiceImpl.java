@@ -24,13 +24,11 @@ public class MockServiceImpl implements BaseService {
 
     @Override
     public UUID registerController() {//todo params for identification
-        return controllerRepo.add(new StoreableControllerModel());
+        return controllerRepo.add(new StoreableControllerModel());//todo log info about controller
     }
 
-//    todo not here but is some class
-
     @Override
-    public String registerData(String controllerId) {
+    public String registerData(String controllerId) {//todo tcp socket
         return "hahah";
         //todo write to filesystem TCP
     }
@@ -49,6 +47,12 @@ public class MockServiceImpl implements BaseService {
     @Override
     @DeleteMapping("noizalyzer/controller")
     public void unregisterController(String id) {
-
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(id);
+        } catch (Exception e) {
+            throw new BaseException();//todo
+        }
+        controllerRepo.remove(uuid);//todo 404 if not found
     }
 }

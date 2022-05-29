@@ -44,7 +44,7 @@ public class FileSystemFileRepoImpl implements FileRepo {
             if (!Files.isDirectory(dir)) {
                 dir = Files.createDirectories(dir);
             }
-            String fileName = String.format("%s_id_%d_%s", config.getPrefix(), data.getSensorId(),
+            String fileName = String.format("%s_id_%d_%s", config.getPrefix(), data.getSensorId(),//todo prefix should be preformatted itself
                     InstantConverter.format(data.getCreationTime()));
             fileName = fileName + ".wav";//todo based on controller info
             Path file = dir.resolve(fileName);
